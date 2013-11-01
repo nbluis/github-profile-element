@@ -1,0 +1,59 @@
+<polymer-element name="github-profile" attributes="user width">
+
+  <template>
+    <style>
+      .profile {
+        width: {{width}}px;
+        font: 13px Helvetica, arial, freesans, clean, sans-serif;
+      }
+      .profile h1, .profile h2 {
+        margin: 0;
+      }
+      .profile h2 {
+        font-weight: normal;
+      }
+      .profile img {
+        width: 100%;
+        border-radius: 6px;
+      }
+    </style>
+
+    <div class="profile">
+      <a href="https://github.com/{{profile.login}}">
+        <img src="{{profile.avatar_url}}&s={{width}}"/>
+        <h1>{{profile.name}}</h1>
+        <h2>{{profile.login}}</h2>
+        <ul>
+          <li>{{profile.company}}</li>
+          <li>{{profile.location}}</li>
+          <li>{{profile.email}}</li>
+          <li>{{profile.blog}}</li>
+          <li>Public repos {{profile.public_repos}}</li>
+          <li>Following {{profile.following}}/li>
+          <li>Followers {{profile.followers}}</li>
+        </ul>
+      </a>
+    </div>
+  </template>
+
+  <script type="text/javascript">
+    var _GITHUB_PROFILE_ELEMENT = _GITHUB_PROFILE_ELEMENT || {};
+
+    Polymer('github-profile', {
+      width : 220,
+      ready : function() {
+        var self = this;
+
+        _GITHUB_PROFILE_ELEMENT.onGithubCallback = function(json) {
+          self.profile = json.data;
+          self.profile.ready = true;
+        };
+
+        var script = document.createElement('script');
+        script.setAttribute('src', 'https://api.github.com/users/' + this.user + '?callback=_GITHUB_PROFILE_ELEMENT.onGithubCallback');
+        this.appendChild(script);
+      }
+    });
+  </script>
+
+</polymer-element>
