@@ -24,7 +24,7 @@ Web Component wrapper for Github Profiles using [Polymer](http://www.polymer-pro
 3. Start using it!
 
 	```xml
-	<github-profile user="nbluis"></github-ribbon>
+	<github-profile user="nbluis"></github-profile>
 	```
 
 ## Contributing
